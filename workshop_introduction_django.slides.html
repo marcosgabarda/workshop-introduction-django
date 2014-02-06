@@ -1736,13 +1736,32 @@ text-align: inherit;
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="taller-de-introducción-a-django">Taller de introducción a Django</h1>
 <p>Marcos Gabarda Inat</p>
-<p><em>Python Valencia</em></p>
+<p>Twitter: <a href="https://twitter.com/cyberslas">@cyberslas</a></p>
+<div class="figure">
+<img src="https://pbs.twimg.com/profile_images/418760084638797824/ZaZlIT8k_bigger.png" />
+</div>
+</div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="vamos-a-hablar-y-a-practicar...">Vamos a hablar y a practicar...</h2>
+<div class="figure">
+<img src="https://www.djangoproject.com/m/img/logos/django-logo-negative.png" />
+</div>
+</div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="y-por-demanda-popular-esta-es-mi-gata">Y por demanda popular, esta es mi gata</h2>
+<div class="figure">
+<img src="https://lh4.googleusercontent.com/-y5EXktvjFuY/Uu0Yljmm0HI/AAAAAAABEMo/6qbjJvbElVk/w1172-h879-no/IMG_20140201_165241.jpg" />
+</div>
 </div></section>
     </section><section>
     <section>
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="qué-es-django">¿Qué es Django?</h2>
-<p>Es un framework para el desarrollo de aplicaciones Web, y se define a si mismo como:</p>
+<p>Es un framework escrito en <strong>Python</strong> para el desarrollo de aplicaciones Web, y se define a si mismo como:</p>
 <blockquote>
 <p>El Web Framework para perfeccionistas con las fechas de entrega</p>
 </blockquote>
@@ -1767,6 +1786,17 @@ text-align: inherit;
 </ul>
 </div>
     </div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="quién-usa-django">¿Quién usa Django?</h2>
+<ul>
+<li><strong>Disqus</strong></li>
+<li><strong>Instagram</strong></li>
+<li><strong>Pinterest</strong></li>
+</ul>
+<p>Y más: http://www.djangosites.org/</p>
+</div></section>
     </section><section>
     <section>
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -3085,7 +3115,7 @@ In&nbsp;[]:
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s">&quot;GET&quot;</span><span class="p">:</span>
         <span class="n">form</span> <span class="o">=</span> <span class="n">CreateCoffee</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">form</span> <span class="o">=</span> <span class="n">CreateCoffee</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">CreateCoffee</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
             <span class="n">coffee</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
             <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s">&#39;coffee_details&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;coffee_id&#39;</span><span class="p">:</span> <span class="n">coffee</span><span class="o">.</span><span class="n">pk</span><span class="p">}))</span>
@@ -3111,10 +3141,10 @@ In&nbsp;[]:
 
     &lt;h1&gt;{% trans &quot;Nuevo café&quot; %}&lt;/h1&gt;
 
-    &lt;form action=&quot;{% url &quot;coffee_create&quot; %}&quot; method=&quot;post&quot;&gt;
+    &lt;form action=&quot;{% url &quot;coffee_create&quot; %}&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
         {% csrf_token %}
         {{ form.as_p }}
-        &lt;button class=&quot;btn btn-primary&quot;&gt;{% trans &quot;Crear&quot; %}&lt;/button&gt;
+        &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;{% trans &quot;Crear&quot; %}&lt;/button&gt;
     &lt;/form&gt;
 
 {% endblock %}</code></pre>
@@ -3517,7 +3547,7 @@ R+e8/wADqCn8TgAZSlORo3yP+3x/t8f7fH+3x/t8f7fA4FdlieiufTO7lVOqh5UrIb1/7J//2Q==
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="ficheros-subidos-por-los-usuarios">Ficheros subidos por los usuarios</h2>
 <p>Para hacer accesibles los ficheros que los usuarios suben, hay que hacerlos accesibles en el fichero de URLs.</p>
-<p>*<em>Esto no debe hacerse en un entorno de producción, donde los ficheros estáticos deberían ser accedidos usando un servidor como Nginx</em></p>
+<p><strong>Esto no debe hacerse en un entorno de producción, donde los ficheros estáticos deberían ser accedidos usando un servidor como Nginx</strong></p>
 </div><div class="fragment">
     
 <div class="cell border-box-sizing code_cell vbox">
@@ -3549,7 +3579,7 @@ In&nbsp;[]:
     <section>
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="código-fuente-disponible-en">Código fuente disponible en</h1>
-<h1 id="httpsgithub.commarcosgabardaworkshop-introduction-django"><a href="https://github.com/marcosgabarda/workshop-introduction-django">https://github.com/marcosgabarda/workshop-introduction-django</a></h1>
+<p><strong>https://github.com/marcosgabarda/workshop-introduction-django</strong></p>
 </div></section>
     </section>
 </div>
