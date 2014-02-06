@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block content %}
+
+    <h1>{% trans "Cafés disponibles" %}</h1>
+
+    <a href="{% url  "coffee_create" %}" class="btn btn-primary">{% trans "Nuevo café" %}</a>
+
+    {% for coffee in coffees %}
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{ coffee.picture.url }}" class="img-responsive" />
+            </div>
+            <div class="col-md-8">
+                <strong>{{ coffee.name }}</strong>
+            </div>
+        </div>
+    {% empty %}
+        <h2><small>{% trans "No hay cafés" %}</small></h2>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+    <h1>{% trans "Nuevo café" %}</h1>
+
+    <form action="{% url "coffee_create" %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary">{% trans "Crear" %}</button>
+    </form>
+
+{% endblock %}

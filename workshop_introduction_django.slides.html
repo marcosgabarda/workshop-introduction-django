@@ -1895,6 +1895,17 @@ In&nbsp;[]:
     </section><section>
     <section>
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="estructura-de-un-proyecto-en-django">Estructura de un proyecto en Django</h2>
+<p>Cuando realizamos una aplicación web basada en Django es importante tener claro estos conceptos:</p>
+<ul>
+<li><strong><em>Django project</em></strong> que será la aplicación web desarrollada usando este framework</li>
+<li><strong><em>Django app</em></strong>, pequeñas librerías diseñadas para representar una parte del proyecto</li>
+<li><strong><em>Third-party package</em></strong>, Django apps reutilizables que han desarrollado otras personas y hemos instalado con <code>pip</code></li>
+</ul>
+</div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Pero-esto-es-un-taller...">Pero esto es un taller...<a class="anchor-link" href="#Pero-esto-es-un-taller...">&#182;</a></h1>
 </div>
 </section>
@@ -1912,7 +1923,7 @@ pip install django==1.6.1</code></pre>
 <h2 id="proyecto-coffee">Proyecto &quot;Coffee&quot;</h2>
 <p>Briefing:</p>
 <blockquote>
-<p>Desarrollar una aplicación Web donde podamos hacer publicar los cafés que nos tomamos durante largo día de programación.</p>
+<p>Desarrollar una aplicación Web donde podamos publicar los cafés que nos tomamos durante largo día de programación.</p>
 </blockquote>
 </div><div class="fragment">
     
@@ -2290,7 +2301,7 @@ UUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH//2Q==
     </section><section>
     <section>
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="historías-de-usuario">Historías de usuario</h3>
+<h3 id="historias-de-usuario">Historias de usuario</h3>
 <ol style="list-style-type: decimal">
 <li>Un visitante podrá registarte en nuestrá página con un nombre de usuario y contraseña</li>
 <li>Un visitante podrá identificarse en la página como un usuario usando los datos del registro</li>
@@ -2349,6 +2360,76 @@ Quit the server with CONTROL-C.</code></pre>
     </section><section>
     <section>
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="settings.py">settings.py</h2>
+<p>Fichero donde configuraremos todos los aspectos de nuestro proyecto.</p>
+</div><div class="fragment">
+    
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="c"># Database</span>
+<span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s">&#39;django.db.backends.sqlite3&#39;</span><span class="p">,</span>
+        <span class="s">&#39;NAME&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s">&#39;db.sqlite3&#39;</span><span class="p">),</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+    </div><div class="fragment">
+    
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="c"># Application definition</span>
+
+<span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.auth&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.messages&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+    </div><div class="fragment">
+    
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="c"># Templates</span>
+
+<span class="n">TEMPLATE_DIRS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s">&#39;templates&#39;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+    </div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="nuestra-primera-app">Nuestra primera app</h2>
 <pre><code>python manage.py startapp coffees</code></pre>
 </div><div class="fragment">
@@ -2386,8 +2467,42 @@ coffeeproject/
     </section><section>
     <section>
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="agregar-la-app-recién-creada-a-settings.py">Agregar la app recién creada a settings.py</h2>
+<p>Necesitamos agregar la app recien creada al fichero de <code>settings.py</code></p>
+</div><div class="fragment">
+    
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="c"># Application definition</span>
+
+<span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.auth&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.messages&#39;</span><span class="p">,</span>
+    <span class="s">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
+    
+    <span class="s">&#39;coffees&#39;</span> <span class="c"># New app</span>
+<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+    </div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="models.py">models.py</h2>
-</div></section><section>
+<p>Crearemos los modelos para poder representar un tipo de café y la acción &quot;un usuario se toma un café&quot;.</p>
+</div><div class="fragment">
+    
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
@@ -2402,29 +2517,207 @@ In&nbsp;[]:
 
 <span class="k">class</span> <span class="nc">Coffee</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Model for coffee type.</span>
+<span class="sd">    A coffee type.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
-    <span class="n">picture</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ImageField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">picture</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ImageField</span><span class="p">(</span><span class="n">upload_to</span><span class="o">=</span><span class="s">&quot;pictures&quot;</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
     <span class="n">creator</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">AUTH_USER_MODEL</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&quot;coffees_created&quot;</span><span class="p">)</span>
-    <span class="n">created_at</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_add_now</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">created_at</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 
 <span class="k">class</span> <span class="nc">CoffeeTaken</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    An user drinks a coffee.</span>
+<span class="sd">    User drinks coffee.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">coffee</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Coffee</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&quot;users_taken&quot;</span><span class="p">)</span>
     <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">AUTH_USER_MODEL</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&quot;coffees_taken&quot;</span><span class="p">)</span>
 
-    <span class="n">created_at</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_add_now</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">created_at</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 
 </div>
 </div>
 
+</div>
+    </div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="creamos-la-base-de-datos">Creamos la base de datos</h2>
+<pre><code>./manage.py syncdb 
+
+./manage.py sqlall coffees
+
+
+BEGIN;
+CREATE TABLE &quot;coffees_coffee&quot; (
+    &quot;id&quot; integer NOT NULL PRIMARY KEY,
+    &quot;name&quot; varchar(128) NOT NULL,
+    &quot;picture&quot; varchar(100),
+    &quot;creator_id&quot; integer NOT NULL REFERENCES &quot;auth_user&quot; (&quot;id&quot;),
+    &quot;created_at&quot; datetime NOT NULL
+)
+;
+CREATE TABLE &quot;coffees_coffeetaken&quot; (
+    &quot;id&quot; integer NOT NULL PRIMARY KEY,
+    &quot;coffee_id&quot; integer NOT NULL REFERENCES &quot;coffees_coffee&quot; (&quot;id&quot;),
+    &quot;user_id&quot; integer NOT NULL REFERENCES &quot;auth_user&quot; (&quot;id&quot;),
+    &quot;created_at&quot; datetime NOT NULL
+)
+;
+CREATE INDEX &quot;coffees_coffee_ad376f8d&quot; ON &quot;coffees_coffee&quot; (&quot;creator_id&quot;);
+CREATE INDEX &quot;coffees_coffeetaken_9dd6e28c&quot; ON &quot;coffees_coffeetaken&quot; (&quot;coffee_id&quot;);
+CREATE INDEX &quot;coffees_coffeetaken_6340c63c&quot; ON &quot;coffees_coffeetaken&quot; (&quot;user_id&quot;);
+
+COMMIT;</code></pre>
 </div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="views.py">views.py</h2>
+<p>Mostraremos los detalles de un tipo de café y un listado de los cafés disponibles</p>
+</div><div class="fragment">
+    
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">get_object_or_404</span>
+<span class="kn">from</span> <span class="nn">coffees.models</span> <span class="kn">import</span> <span class="n">Coffee</span>
+
+
+<span class="k">def</span> <span class="nf">coffee_details</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">coffee_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Details of a coffee</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">coffee</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Coffee</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">coffee_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s">&quot;coffees/details.html&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s">&quot;coffee&quot;</span><span class="p">:</span> <span class="n">coffee</span><span class="p">})</span>
+
+
+<span class="k">def</span> <span class="nf">coffees_list</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    List of available coffess</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">coffees</span> <span class="o">=</span> <span class="n">Coffee</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s">&quot;-created_at&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s">&quot;coffees/list.html&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s">&quot;coffees&quot;</span><span class="p">:</span> <span class="n">coffees</span><span class="p">})</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+    </div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="templates">Templates</h2>
+<p>Los <em>templates</em> se encargan del cómo se muestra la información.</p>
+<p>Creamos una carpeta para los templates en el directorio raíz del proyecto, con los siguietes ficheros:</p>
+<pre><code>templates/
+├── base.html
+└── coffees
+    ├── details.html
+    └── list.html
+
+1 directory, 3 files</code></pre>
+</div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="base.html">base.html</h3>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;{% block title %}Coffee{% endblock %}&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css&quot;&gt;
+    &lt;script src=&quot;http://code.jquery.com/jquery-1.10.1.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;container&quot;&gt;
+    {% block content %}{% endblock content %}
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="list.html">list.html</h3>
+<pre><code>{% extends &quot;base.html&quot; %}
+{% load i18n %}
+{% block content %}
+
+    &lt;h1&gt;{% trans &quot;Cafés disponibles&quot; %}&lt;/h1&gt;
+
+    {% for coffee in coffees %}
+        &lt;div class=&quot;row&quot;&gt;
+            &lt;div class=&quot;col-md-4&quot;&gt;
+                &lt;img src=&quot;{{ coffee.picture.url }}&quot; class=&quot;img-responsive&quot; /&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;col-md-8&quot;&gt;
+                &lt;strong&gt;{{ coffee.name }}&lt;/strong&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    {% empty %}
+        &lt;h2&gt;&lt;small&gt;{% trans &quot;No hay cafés&quot; %}&lt;/small&gt;&lt;/h2&gt;
+    {% endfor %}
+{% endblock %}</code></pre>
+</div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="details.html">details.html</h3>
+<pre><code>{% extends &quot;base.html&quot; %}
+
+{% block content %}
+&lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-md-4&quot;&gt;
+        &lt;img src=&quot;{{ coffee.picture.url }}&quot; class=&quot;img-responsive&quot; /&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;col-md-8&quot;&gt;
+        &lt;strong&gt;{{ coffee.name }}&lt;/strong&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+{% endblock %}</code></pre>
+</div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="definamos-las-urls">Definamos las URLs</h2>
+<p>Ya tenemos modelos, vistas y templates, ahora necesitamos definir las URLs con las que queremos interactuar con nuestra aplicación.</p>
+<ul>
+<li><code>coffeeproject/urls.py</code></li>
+</ul>
+</div><div class="fragment">
+    
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">url</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="n">admin</span><span class="o">.</span><span class="n">autodiscover</span><span class="p">()</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span>
+    <span class="s">&#39;&#39;</span><span class="p">,</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^$&#39;</span><span class="p">,</span> <span class="s">&quot;coffees.views.coffees_list&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;coffees_list&quot;</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^coffees/(?P&lt;coffee_id&gt;\d+)/&#39;</span><span class="p">,</span> <span class="s">&quot;coffees.views.coffees_list&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;coffee_details&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+    </div></section>
     </section>
 </div>
 </div>

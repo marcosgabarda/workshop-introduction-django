@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Coffee | {{ coffee.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <img src="{{ coffee.picture.url }}" class="img-responsive" />
+    </div>
+    <div class="col-md-8">
+        <h1>{{ coffee.name }}</h1>
+    </div>
+</div>
+{% endblock %}

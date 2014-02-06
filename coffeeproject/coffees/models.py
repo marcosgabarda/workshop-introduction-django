@@ -9,9 +9,9 @@ class Coffee(models.Model):
     A coffee type.
     """
     name = models.CharField(max_length=128)
-    picture = models.ImageField(upload_to="pictures", null=True, blank=True)
+    picture = models.ImageField(upload_to="pictures", null=True, blank=True, default='/static/img/coffee.jpg')
 
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="coffees_created")
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="coffees_created", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
