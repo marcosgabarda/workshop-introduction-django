@@ -1780,18 +1780,132 @@ text-align: inherit;
 <li>Vista: Muestra la información al usuario</li>
 <li>Controlador: Maneja las interacción del usuario con la aplicación</li>
 </ul>
+</div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Partiendo de esta base, Django implementa un patrón que llama <strong>Modelo-Template-Vista</strong>, buscando efatizar el desarrollo <strong>rápido</strong>.</p>
+<ul>
+<li><strong>Vista</strong> se correspondería con el <strong>controlador</strong></li>
+<li><strong>Template</strong> se correspondería con la <strong>vista</strong></li>
+</ul>
 </div><div class="fragment">
     
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Partiendo de esta base, Django implementa un patrón que llama <strong>Modelo-Template-Vista</strong>, buscando efatizar el desarrollo <strong>rápido</strong>.</p>
+<blockquote>
+<p><em>Fat Models, Helper Modules, Thin Views, Stupid Templates</em></p>
+</blockquote>
 </div>
     </div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="modelos">Modelos</h2>
+<p><strong>Declaración</strong></p>
+</div><div class="fragment">
+    
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="k">class</span> <span class="nc">Poll</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">pub_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="s">&#39;date published&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Choice</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">poll</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Poll</span><span class="p">)</span>
+    <span class="n">choice_text</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">votes</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+    </div><div class="fragment">
+    
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>ORM API</strong></p>
+</div>
+    </div><div class="fragment">
+    
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="p">[]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">u</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s">&quot;dreinhardt&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">u</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">User</span><span class="p">:</span> <span class="n">dreinhardt</span><span class="o">&gt;</span><span class="p">]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s">&quot;dreinhardt&quot;</span><span class="p">)</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="n">User</span><span class="p">:</span> <span class="n">dreinhardt</span><span class="o">&gt;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+    </div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="vistas">Vistas</h2>
+</div><div class="fragment">
+    
+<div class="cell border-box-sizing code_cell vbox">
+<div class="input hbox">
+<div class="prompt input_prompt">
+In&nbsp;[]:
+</div>
+<div class="input_area box-flex1">
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">&quot;Hello world!&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+
+</div>
+    </div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="templates">Templates</h2>
+<pre><code>&lt;html&gt;
+    &lt;head&gt;&lt;/head&gt;
+    &lt;body&gt;
+    {{ user.username }}
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div></section>
     </section><section>
     <section>
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Pero-esto-es-un-taller...">Pero esto es un taller...<a class="anchor-link" href="#Pero-esto-es-un-taller...">&#182;</a></h1>
 </div>
 </section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="entorno-de-desarrollo">Entorno de desarrollo</h2>
+<p>La forma más sencilla de instalar <strong>Django</strong> con <a href="http://virtualenvwrapper.readthedocs.org/en/latest/">virtualenvwrapper</a> (o con virtualenv):</p>
+<pre><code>mkvirtualenv workshop
+pip install django==1.6.1</code></pre>
+</div></section>
     </section><section>
     <section>
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1805,7 +1919,7 @@ text-align: inherit;
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
-In&nbsp;[4]:
+In&nbsp;[6]:
 </div>
 <div class="input_area box-flex1">
 <div class="highlight"><pre><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
@@ -1820,7 +1934,7 @@ In&nbsp;[4]:
 
 
 <div class="hbox output_area"><div class="prompt output_prompt">
-    Out[4]:</div>
+    Out[6]:</div>
 <div class="box-flex1 output_subarea output_pyout">
 
 
@@ -2179,64 +2293,132 @@ UUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAH//2Q==
 <h3 id="historías-de-usuario">Historías de usuario</h3>
 <ol style="list-style-type: decimal">
 <li>Un visitante podrá registarte en nuestrá página con un nombre de usuario y contraseña</li>
-<li>Un visitante podrá identificarse en la página como un usuario usando los datos del registro.</li>
-<li>Un usuario podrá hacer &quot;</li>
+<li>Un visitante podrá identificarse en la página como un usuario usando los datos del registro</li>
+<li>Un usuario podrá indicar que se ha tomado un café, seleccionandolo de una lista</li>
+<li>Un usuario podrá agregar un nuevo café a la lista, indicando un nombre, una imágen y una descripción</li>
 </ol>
 </div></section>
     </section><section>
     <section>
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="creación-de-un-nuevo-proyecto">Creación de un nuevo proyecto</h2>
+<h2 id="primero-el-proyecto">Primero el proyecto</h2>
+<p>Necesitamos crear un proyecto de Django:</p>
 <pre><code>django-admin.py startproject coffeeproject</code></pre>
 </div><div class="fragment">
     
-<div class="cell border-box-sizing code_cell vbox">
-<div class="input hbox">
-<div class="prompt input_prompt">
-In&nbsp;[3]:
-</div>
-<div class="input_area box-flex1">
-<div class="highlight"><pre><span class="o">!</span>tree coffeeproject
-</pre></div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<pre><code>$ tree coffeeproject
 
-</div>
-</div>
-
-<div class="vbox output_wrapper">
-<div class="output vbox">
-
-
-<div class="hbox output_area"><div class="prompt"></div>
-<div class="box-flex1 output_subarea output_stream output_stdout">
-<pre>
-<span class="ansibold ansiblue">coffeeproject</span>
-├── <span class="ansibold ansiblue">coffeeproject</span>
-│   ├── __init__.py
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
+coffeeproject
+├── coffeeproject
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
 └── manage.py
 
-1 directory, 5 files
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
+1 directory, 5 files</code></pre>
 </div>
     </div></section>
     </section><section>
     <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Los diferentes elementos de un proyecto recién creado:</p>
+<ul>
+<li>Carpeta <code>coffeproject</code> en la raíz es el contenedor del proyecto</li>
+<li><code>manage.py</code> interfaz de línea de comandos para la gestión del proyecto</li>
+<li>Sub-carpeta <code>coffeeproject</code> es el paquete de Python principal para el proyecto</li>
+<li><code>coffeeproject/settings.py</code> contiene la configuración del proyecto</li>
+<li><code>coffeeproject/urls.py</code> contiene las declaraciones de las URLs del proyecto</li>
+<li><code>coffeeproject/wsgi.py</code> punto de entrada para servidores compatibles con WSGI (para la puesta en producción)</li>
+</ul>
+</div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="servidor-de-desarrollo">Servidor de desarrollo</h2>
+<pre><code>python manage.py runserver
+Validating models...
+
+0 errors found
+February 06, 2014 - 10:41:49
+Django version 1.6.1, using settings &#39;coffeeproject.settings&#39;
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.</code></pre>
+</div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="nuestra-primera-app">Nuestra primera app</h2>
+<pre><code>python manage.py startapp coffees</code></pre>
+</div><div class="fragment">
+    
+<div class="text_cell_render border-box-sizing rendered_html">
+<pre><code>$ tree coffeeproject/
+coffeeproject/
+├── coffeeproject
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── coffees
+│   ├── admin.py
+│   ├── __init__.py
+│   ├── models.py
+│   ├── tests.py
+│   └── views.py
+└── manage.py
+
+2 directories, 12 files</code></pre>
+</div>
+    </div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>La carpeta <code>coffees</code> contiene la app creada</li>
+<li><code>admin.py</code> registro de modelos para la interfaz de administración</li>
+<li><code>models.py</code> declaración de los modelos</li>
+<li><code>tests.py</code> test de la app</li>
+<li><code>views.py</code> declaración de las vistas</li>
+</ul>
+</div></section>
+    </section><section>
+    <section>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="models.py">models.py</h2>
+</div></section><section>
 <div class="cell border-box-sizing code_cell vbox">
 <div class="input hbox">
 <div class="prompt input_prompt">
 In&nbsp;[]:
 </div>
 <div class="input_area box-flex1">
-<div class="highlight"><pre>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="c"># Create your models here.</span>
+
+
+<span class="k">class</span> <span class="nc">Coffee</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Model for coffee type.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+    <span class="n">picture</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ImageField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="n">creator</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">AUTH_USER_MODEL</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&quot;coffees_created&quot;</span><span class="p">)</span>
+    <span class="n">created_at</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_add_now</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">CoffeeTaken</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An user drinks a coffee.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">coffee</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Coffee</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&quot;users_taken&quot;</span><span class="p">)</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">AUTH_USER_MODEL</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&quot;coffees_taken&quot;</span><span class="p">)</span>
+
+    <span class="n">created_at</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_add_now</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 
 </div>
